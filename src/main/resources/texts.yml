@@ -1,10 +1,10 @@
 reward:
-  invalidSender: "Hier wird doch nicht gecheatet, oder?"
-  alreadyTaken: "Du hast deine Belohnung heute schon abgeholt."
-  success: "Die tägliche Belohnung wurde erfolgreich abgeholt."
+  invalidSender: "You aren't cheating, are you?"
+  alreadyTaken: "You already claimed your daily reward."
+  success: "You claimed your daily reward successfully."
 
 shop:
-  title: "Belohnungsshop"
+  title: "Reward Shop"
 
 misc:
-  start: "Die Sucht hat begonnen."
+  start: "Custom Rewards started."

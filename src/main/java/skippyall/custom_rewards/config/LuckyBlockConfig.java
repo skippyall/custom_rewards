@@ -1,6 +1,6 @@
 package skippyall.custom_rewards.config;
 
-import skippyall.custom_rewards.Freundesserver;
+import skippyall.custom_rewards.CustomRewards;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class LuckyBlockConfig {
-    private static File configFile = new File(Freundesserver.plugin.getDataFolder(),"lucky_blocks.yml");
+    private static File configFile = new File(CustomRewards.plugin.getDataFolder(),"lucky_blocks.yml");
 
     private static ArrayList<ItemStack> luckyBlocks=new ArrayList<>();
     private static ItemStack coin;
@@ -27,7 +27,7 @@ public class LuckyBlockConfig {
         try {
             FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
             config.options().copyDefaults(true);
-            config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(Freundesserver.plugin.getResource("lucky_blocks.yml"))));
+            config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(CustomRewards.plugin.getResource("lucky_blocks.yml"))));
             config.save(configFile);
             generateLuckyBlocks(config.getConfigurationSection("luckyBlocks"));
             generateCoin(config.getConfigurationSection("coins"));
@@ -44,7 +44,7 @@ public class LuckyBlockConfig {
             ItemStack stack = new ItemStack(Material.CLOCK);
             ItemMeta itemMeta = stack.getItemMeta();
 
-            itemMeta.getPersistentDataContainer().set(new NamespacedKey(Freundesserver.plugin,"id"), PersistentDataType.STRING,key);
+            itemMeta.getPersistentDataContainer().set(new NamespacedKey(CustomRewards.plugin,"id"), PersistentDataType.STRING,key);
             itemMeta.setCustomModelData(luckyBlockConfig.getInt("customModelData"));
             itemMeta.setDisplayName(luckyBlockConfig.getString("name"));
 
@@ -67,7 +67,7 @@ public class LuckyBlockConfig {
         coin = new ItemStack(Material.CLOCK);
         ItemMeta itemMeta = coin.getItemMeta();
 
-        itemMeta.getPersistentDataContainer().set(new NamespacedKey(Freundesserver.plugin,"id"), PersistentDataType.STRING,"coin");
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(CustomRewards.plugin,"id"), PersistentDataType.STRING,"coin");
         itemMeta.setCustomModelData(config.getInt("customModelData"));
         itemMeta.setDisplayName(config.getString("name"));
 
@@ -83,7 +83,7 @@ public class LuckyBlockConfig {
     public static String getRandomAction(ItemStack stack){
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-        String key=stack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Freundesserver.plugin, "id"),PersistentDataType.STRING);
+        String key=stack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(CustomRewards.plugin, "id"),PersistentDataType.STRING);
         ConfigurationSection luckyBlockConfig=config.getConfigurationSection("luckyBlocks").getConfigurationSection(key);
 
         Map<String,Object> chancesMap=luckyBlockConfig.getConfigurationSection("chances").getValues(false);

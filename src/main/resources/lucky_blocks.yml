@@ -1,10 +1,10 @@
 coins:
   customModelData: 1
-  name: Münze
-  tooltip: Blablabla
+  name: Coin
+  tooltip: Read this!
 
 luckyBlocks:
-  luckyBlockYellow:
+  luckyBlockExample:
     chances:
       veryBad: 0.01
       bad: 0.22
@@ -14,19 +14,19 @@ luckyBlocks:
       op: 0.01
 
     customModelData: 2
-    name: Gelber Luckyblock
-    tooltip: Blablabla
+    name: Luckyblock
+    tooltip: Read this!
 
 loottables:
   veryBad:
-    - /say sehr schlecht
+    - /say Very bad!
   bad:
-    - /say schlecht
+    - /say Bad.
   useless:
-    - /say nutzlos
+    - /say Useless.
   good:
-    - /say gut
+    - /say Good.
   veryGood:
-    - /say sehr gut
+    - /say Very good!
   op:
-    - /say op
+    - /say Op!!!

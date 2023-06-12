@@ -1,9 +1,9 @@
-name: Freundesserver
+name: CustomRewards
 version: '${project.version}'
-main: freundetf.freundesserver.Freundesserver
+main: skippyall.custom_rewards.CustomRewards
 api-version: 1.19
 commands:
   belohnung:
-    description: Holt deine tägliche Belohnung ab.
+    description: Gets your daily reward.
     usage: /belohnung
-    permission: freundesserver.suchti
+    permission: custom_rewards.command

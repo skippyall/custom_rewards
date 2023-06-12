@@ -5,12 +5,12 @@ import skippyall.custom_rewards.config.TextConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Freundesserver extends JavaPlugin {
-    public static Freundesserver plugin;
+public final class CustomRewards extends JavaPlugin {
+    public static CustomRewards plugin;
     @Override
     public void onEnable() {
         plugin=this;
-        plugin.getCommand("belohnung").setExecutor(new BelohnungCommand());
+        plugin.getCommand("reward").setExecutor(new RewardCommand());
 
         Configs.initConfigs();
         CoinMenu.init();

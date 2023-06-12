@@ -11,8 +11,8 @@ import org.bukkit.metadata.MetadataValue;
 
 import java.time.LocalDate;
 
-public class BelohnungCommand implements CommandExecutor {
-    public static final String lastreward="freundesserver.lastreward";
+public class RewardCommand implements CommandExecutor {
+    public static final String lastreward="custom_rewards.lastreward";
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)){
@@ -23,7 +23,7 @@ public class BelohnungCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         for (MetadataValue metadata : player.getMetadata(lastreward)) {
-            if (metadata.getOwningPlugin() == Freundesserver.plugin) {
+            if (metadata.getOwningPlugin() == CustomRewards.plugin) {
                 long time = metadata.asLong();
                 if (time == LocalDate.now().toEpochDay()) {
                     player.sendMessage(TextConfig.getText("reward.alreadyTaken"));
@@ -32,7 +32,7 @@ public class BelohnungCommand implements CommandExecutor {
             }
         }
 
-        player.setMetadata(lastreward, new FixedMetadataValue(Freundesserver.plugin,LocalDate.now().toEpochDay()));
+        player.setMetadata(lastreward, new FixedMetadataValue(CustomRewards.plugin,LocalDate.now().toEpochDay()));
 
         player.getInventory().addItem(LuckyBlockConfig.getCoin());
 
