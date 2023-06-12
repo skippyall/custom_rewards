@@ -1,0 +1,10 @@
+reward:
+  invalidSender: "Hier wird doch nicht gecheatet, oder?"
+  alreadyTaken: "Du hast deine Belohnung heute schon abgeholt."
+  success: "Die tägliche Belohnung wurde erfolgreich abgeholt."
+
+shop:
+  title: "Belohnungsshop"
+
+misc:
+  start: "Die Sucht hat begonnen."

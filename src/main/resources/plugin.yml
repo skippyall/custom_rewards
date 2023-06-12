@@ -1,0 +1,9 @@
+name: Freundesserver
+version: '${project.version}'
+main: freundetf.freundesserver.Freundesserver
+api-version: 1.19
+commands:
+  belohnung:
+    description: Holt deine tägliche Belohnung ab.
+    usage: /belohnung
+    permission: freundesserver.suchti

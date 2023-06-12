@@ -1,0 +1,32 @@
+coins:
+  customModelData: 1
+  name: Münze
+  tooltip: Blablabla
+
+luckyBlocks:
+  luckyBlockYellow:
+    chances:
+      veryBad: 0.01
+      bad: 0.22
+      useless: 0.5
+      good: 0.21
+      veryGood: 0.05
+      op: 0.01
+
+    customModelData: 2
+    name: Gelber Luckyblock
+    tooltip: Blablabla
+
+loottables:
+  veryBad:
+    - /say sehr schlecht
+  bad:
+    - /say schlecht
+  useless:
+    - /say nutzlos
+  good:
+    - /say gut
+  veryGood:
+    - /say sehr gut
+  op:
+    - /say op
