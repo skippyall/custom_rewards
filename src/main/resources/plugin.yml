@@ -3,7 +3,7 @@ version: '${project.version}'
 main: skippyall.custom_rewards.CustomRewards
 api-version: 1.19
 commands:
-  belohnung:
+  reward:
     description: Gets your daily reward.
-    usage: /belohnung
+    usage: /reward
     permission: custom_rewards.command

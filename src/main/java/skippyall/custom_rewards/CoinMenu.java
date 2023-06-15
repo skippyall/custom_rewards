@@ -19,9 +19,13 @@ public class CoinMenu implements Listener {
 
     public static void init() {
         List<ItemStack> list= LuckyBlockConfig.getLuckyBlocks();
+        for(int i=list.size();i<=7;i++){
+            list.add(new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE));
+        }
+        list.add(new ItemStack(Material.SPRUCE_DOOR));
+
         inventory=Bukkit.createInventory(null,9, TextConfig.getText("shop.title"));
         inventory.addItem(list.toArray(new ItemStack[list.size()]));
-        inventory.setItem(8,new ItemStack(Material.SPRUCE_DOOR));
     }
 
     @EventHandler
