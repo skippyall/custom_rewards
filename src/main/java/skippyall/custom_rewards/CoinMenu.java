@@ -1,5 +1,6 @@
 package skippyall.custom_rewards;
 
+import org.bukkit.inventory.meta.ItemMeta;
 import skippyall.custom_rewards.config.LuckyBlockConfig;
 import skippyall.custom_rewards.config.TextConfig;
 import org.bukkit.Bukkit;
@@ -19,13 +20,18 @@ public class CoinMenu implements Listener {
 
     public static void init() {
         List<ItemStack> list= LuckyBlockConfig.getLuckyBlocks();
+        ItemStack stack=new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+        ItemMeta meta=stack.getItemMeta();
+        meta.setDisplayName("X");
+        stack.setItemMeta(meta);
         for(int i=list.size();i<=7;i++){
-            list.add(new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE));
+
+            list.add(stack.clone());
         }
         list.add(new ItemStack(Material.SPRUCE_DOOR));
 
         inventory=Bukkit.createInventory(null,9, TextConfig.getText("shop.title"));
-        inventory.addItem(list.toArray(new ItemStack[list.size()]));
+        inventory.setContents(list.toArray(new ItemStack[list.size()]));
     }
 
     @EventHandler
@@ -39,25 +45,30 @@ public class CoinMenu implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
-        if((e.getClickedInventory() != null) && (e.getClickedInventory() == inventory)){
-            if(e.isLeftClick()&&e.getCurrentItem()!=null) {
-                Inventory playerInventory = e.getWhoClicked().getInventory();
-                Material itemType = e.getCurrentItem().getType();
-                if (itemType == Material.CLOCK && playerInventory.containsAtLeast(LuckyBlockConfig.getCoin(), 1)) {
-                    playerInventory.addItem(e.getCurrentItem());
-                    ItemStack[] contents = playerInventory.getContents();
-                    for (ItemStack stack : contents) {
-                        if ((stack != null) && stack.isSimilar(LuckyBlockConfig.getCoin())) {
-                            stack.setAmount(stack.getAmount() - 1);
-                            playerInventory.setContents(contents);
-                            break;
+        if(e.getClickedInventory()!=null) {
+            if (e.getClickedInventory() == inventory) {
+                if (e.isLeftClick() && e.getCurrentItem() != null) {
+                    Inventory playerInventory = e.getWhoClicked().getInventory();
+                    Material itemType = e.getCurrentItem().getType();
+                    if (itemType == Material.CLOCK && playerInventory.containsAtLeast(LuckyBlockConfig.getCoin(), 1)) {
+                        playerInventory.addItem(e.getCurrentItem());
+                        ItemStack[] contents = playerInventory.getContents();
+                        for (ItemStack stack : contents) {
+                            if ((stack != null) && stack.isSimilar(LuckyBlockConfig.getCoin())) {
+                                stack.setAmount(stack.getAmount() - 1);
+                                playerInventory.setContents(contents);
+                                break;
+                            }
                         }
+                    } else if (itemType == Material.SPRUCE_DOOR) {
+                        e.getWhoClicked().closeInventory();
                     }
-                } else if (itemType == Material.SPRUCE_DOOR) {
-                    e.getWhoClicked().closeInventory();
                 }
+                e.setCancelled(true);
             }
-            e.setCancelled(true);
+            if (e.getView().getTopInventory() == inventory && e.isShiftClick()){
+                e.setCancelled(true);
+            }
         }
     }
 }

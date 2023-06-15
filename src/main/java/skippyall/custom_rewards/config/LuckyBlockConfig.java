@@ -38,6 +38,7 @@ public class LuckyBlockConfig {
     }
 
     public static void generateLuckyBlocks(ConfigurationSection config){
+        luckyBlocks.clear();
         for(String key:config.getKeys(false)){
             ConfigurationSection luckyBlockConfig=config.getConfigurationSection(key);
 
