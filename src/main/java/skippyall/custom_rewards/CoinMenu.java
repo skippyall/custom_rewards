@@ -1,5 +1,6 @@
 package skippyall.custom_rewards;
 
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.meta.ItemMeta;
 import skippyall.custom_rewards.config.LuckyBlockConfig;
 import skippyall.custom_rewards.config.TextConfig;
@@ -66,8 +67,10 @@ public class CoinMenu implements Listener {
                 }
                 e.setCancelled(true);
             }
-            if (e.getView().getTopInventory() == inventory && e.isShiftClick()){
-                e.setCancelled(true);
+            if (e.getView().getTopInventory() == inventory){
+                if(e.getAction().equals(InventoryAction.COLLECT_TO_CURSOR)||e.isShiftClick()) {
+                    e.setCancelled(true);
+                }
             }
         }
     }

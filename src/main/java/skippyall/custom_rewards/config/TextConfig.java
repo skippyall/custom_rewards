@@ -12,9 +12,11 @@ public class TextConfig {
     public static void initConfig(){
         try {
             FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-            config.options().copyDefaults(true);
-            config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(CustomRewards.plugin.getResource("texts.yml"))));
-            config.save(configFile);
+            if (!configFile.exists()){
+                config.options().copyDefaults(true);
+                config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(CustomRewards.plugin.getResource("texts.yml"))));
+                config.save(configFile);
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

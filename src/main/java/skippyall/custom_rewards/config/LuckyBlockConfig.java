@@ -1,5 +1,6 @@
 package skippyall.custom_rewards.config;
 
+import org.jetbrains.annotations.NotNull;
 import skippyall.custom_rewards.CustomRewards;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -26,9 +27,11 @@ public class LuckyBlockConfig {
     public static void initConfig(){
         try {
             FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-            config.options().copyDefaults(true);
-            config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(CustomRewards.plugin.getResource("lucky_blocks.yml"))));
-            config.save(configFile);
+            if(!configFile.exists()) {
+                config.options().copyDefaults(true);
+                config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(CustomRewards.plugin.getResource("lucky_blocks.yml"))));
+                config.save(configFile);
+            }
             generateLuckyBlocks(config.getConfigurationSection("luckyBlocks"));
             generateCoin(config.getConfigurationSection("coins"));
 
@@ -37,7 +40,7 @@ public class LuckyBlockConfig {
         }
     }
 
-    public static void generateLuckyBlocks(ConfigurationSection config){
+    public static void generateLuckyBlocks(@NotNull ConfigurationSection config){
         luckyBlocks.clear();
         for(String key:config.getKeys(false)){
             ConfigurationSection luckyBlockConfig=config.getConfigurationSection(key);
@@ -56,7 +59,7 @@ public class LuckyBlockConfig {
             luckyBlocks.add(stack);
         }
     }
-    public static List<ItemStack> getLuckyBlocks(){
+    public static @NotNull List<ItemStack> getLuckyBlocks(){
         ArrayList<ItemStack> list=new ArrayList<>();
         for(ItemStack stack:luckyBlocks){
             list.add(stack.clone());
@@ -64,7 +67,7 @@ public class LuckyBlockConfig {
         return list;
     }
 
-    public static void generateCoin(ConfigurationSection config){
+    public static void generateCoin(@NotNull ConfigurationSection config){
         coin = new ItemStack(Material.CLOCK);
         ItemMeta itemMeta = coin.getItemMeta();
 
@@ -77,11 +80,11 @@ public class LuckyBlockConfig {
 
         coin.setItemMeta(itemMeta);
     }
-    public static ItemStack getCoin(){
+    public static @NotNull ItemStack getCoin(){
         return coin.clone();
     }
 
-    public static String getRandomAction(ItemStack stack){
+    public static String getRandomAction(@NotNull ItemStack stack){
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
         String key=stack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(CustomRewards.plugin, "id"),PersistentDataType.STRING);
