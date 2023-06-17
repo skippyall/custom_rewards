@@ -2,8 +2,10 @@ name: CustomRewards
 version: '${project.version}'
 main: skippyall.custom_rewards.CustomRewards
 api-version: 1.19
-commands:
-  reward:
-    description: Gets your daily reward.
-    usage: /reward
-    permission: custom_rewards.command
+depend: [CommandAPI]
+permissions:
+  custom_rewards.command.give:
+    default: op
+    description: Enables /reward give
+  custom_rewards.command.claim:
+    description: Enables /reward claim and /reward

@@ -109,6 +109,6 @@ public class LuckyBlockConfig {
         }
 
         List<String> commandList=config.getConfigurationSection("loottables").getStringList(categoryKey);
-        return commandList.get(random.nextInt(0, commandList.size()));
+        return commandList.get(random.nextInt(commandList.size()));
     }
 }

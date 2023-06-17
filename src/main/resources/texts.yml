@@ -1,7 +1,13 @@
 reward:
-  invalidSender: "You aren't cheating, are you?"
-  alreadyTaken: "You already claimed your daily reward."
-  success: "You claimed your daily reward successfully."
+  claim:
+    alreadyTaken: "You already claimed your daily reward."
+    success: "You claimed your daily reward successfully."
+    usage: "/reward claim"
+
+  give:
+    usage: "/reward give <target> <item> <number>"
+
+  usage: "/reward"
 
 shop:
   title: "Reward Shop"

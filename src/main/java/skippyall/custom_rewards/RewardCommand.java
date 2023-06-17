@@ -1,10 +1,14 @@
 package skippyall.custom_rewards;
 
+import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.arguments.IntegerArgument;
+import dev.jorel.commandapi.arguments.PlayerArgument;
+import dev.jorel.commandapi.arguments.StringArgument;
+import dev.jorel.commandapi.executors.CommandExecutor;
+import dev.jorel.commandapi.executors.PlayerCommandExecutor;
 import org.bukkit.NamespacedKey;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import skippyall.custom_rewards.config.LuckyBlockConfig;
@@ -12,32 +16,53 @@ import skippyall.custom_rewards.config.TextConfig;
 
 import java.time.LocalDate;
 
-public class RewardCommand implements CommandExecutor {
-    public static final String lastreward="custom_rewards.lastreward";
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)){
-            sender.sendMessage(TextConfig.getText("reward.invalidSender"));
-            return true;
-        }
-
-        Player player = (Player) sender;
-
-        PersistentDataContainer container=player.getPersistentDataContainer();
-        NamespacedKey key=new NamespacedKey(CustomRewards.plugin,lastreward);
-        if(container.has(key,PersistentDataType.LONG)) {
-            long time = container.get(key, PersistentDataType.LONG);
-            if (time == LocalDate.now().toEpochDay()) {
-                player.sendMessage(TextConfig.getText("reward.alreadyTaken"));
-                return true;
+public class RewardCommand {
+    public static void init() {
+        PlayerCommandExecutor claimExecutor = (player,args) -> {
+            PersistentDataContainer container=player.getPersistentDataContainer();
+            NamespacedKey key=new NamespacedKey(CustomRewards.plugin,"custom_rewards.lastreward");
+            if(container.has(key, PersistentDataType.LONG)) {
+                long time = container.get(key, PersistentDataType.LONG);
+                if (time == LocalDate.now().toEpochDay()) {
+                    player.sendMessage(TextConfig.getText("reward.claim.alreadyTaken"));
+                    return;
+                }
             }
-        }
-        container.set(key, PersistentDataType.LONG, LocalDate.now().toEpochDay());
+            container.set(key, PersistentDataType.LONG, LocalDate.now().toEpochDay());
 
-        player.getInventory().addItem(LuckyBlockConfig.getCoin());
+            player.getInventory().addItem(LuckyBlockConfig.getCoin());
 
-        player.sendMessage(TextConfig.getText("reward.success"));
+            player.sendMessage(TextConfig.getText("reward.claim.success"));
+        };
 
-        return true;
+        CommandExecutor giveExecutor = (sender,args)->{
+            Player player = (Player) args.get(0);
+            String item = (String) args.get(1);
+            int number = (Integer) args.get(2);
+            ItemStack stack;
+            if(item.equals("coin")) {
+                stack = LuckyBlocks.getCoin();
+            } else {
+                stack = LuckyBlocks.getLuckyBlock(item);
+            }
+            if (stack != null) {
+                stack.setAmount(number);
+                player.getInventory().addItem(stack);
+            }
+        };
+
+        new CommandAPICommand("reward")
+            .withSubcommands(new CommandAPICommand("give")
+                .withArguments(new PlayerArgument("target"), new StringArgument("item"), new IntegerArgument("number",1))
+                .executes(giveExecutor)
+                .withPermission("custom_rewards.command.give")
+                .withUsage(TextConfig.getText("reward.give.usage"))
+            ).withSubcommands(new CommandAPICommand("claim")
+                .executesPlayer(claimExecutor)
+                .withPermission("custom_rewards.command.claim")
+                .withUsage(TextConfig.getText("reward.claim.usage"))
+            ).executesPlayer(claimExecutor)
+            .withPermission("custom_rewards.command.claim")
+            .register();
     }
 }
