@@ -1,7 +1,7 @@
 coins:
   customModelData: 1
   name: Coin
-  tooltip: Read this!
+  tooltip: Rightclick to open a Shop
 
 luckyBlocks:
   luckyBlockExample:
@@ -14,8 +14,8 @@ luckyBlocks:
       op: 0.01
 
     customModelData: 2
-    name: Luckyblock
-    tooltip: Read this!
+    name: LuckyBlock
+    tooltip: Rightclick to get your loot
 
 loottables:
   veryBad:
