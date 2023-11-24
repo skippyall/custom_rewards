@@ -26,7 +26,6 @@ public class CoinMenu implements Listener {
         meta.setDisplayName("X");
         stack.setItemMeta(meta);
         for(int i=list.size();i<=7;i++){
-
             list.add(stack.clone());
         }
         list.add(new ItemStack(Material.SPRUCE_DOOR));

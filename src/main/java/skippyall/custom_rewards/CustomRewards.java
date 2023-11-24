@@ -5,6 +5,8 @@ import skippyall.custom_rewards.config.TextConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
+
 public final class CustomRewards extends JavaPlugin {
     public static CustomRewards plugin;
 

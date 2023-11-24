@@ -2,12 +2,14 @@ reward:
   claim:
     alreadyTaken: "You already claimed your daily reward."
     success: "You claimed your daily reward successfully."
-    usage: "/reward claim"
+    usage: "/reward or /reward claim"
+    shortDescription: "Claims your daily reward."
+    fullDescription: "Gives you one coin. Usable once every day."
 
   give:
     usage: "/reward give <target> <item> <number>"
-
-  usage: "/reward"
+    shortDescription: "Gives an item from CustomRewards."
+    fullDescription: "Gives the specified item or lucky block to the player."
 
 shop:
   title: "Reward Shop"

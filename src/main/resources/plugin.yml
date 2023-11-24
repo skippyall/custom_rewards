@@ -4,8 +4,9 @@ main: skippyall.custom_rewards.CustomRewards
 api-version: 1.19
 depend: [CommandAPI]
 permissions:
-  custom_rewards.command.give:
+  custom_rewards.give:
     default: op
     description: Enables /reward give
-  custom_rewards.command.claim:
+  custom_rewards.claim:
     description: Enables /reward claim and /reward
+    default: true

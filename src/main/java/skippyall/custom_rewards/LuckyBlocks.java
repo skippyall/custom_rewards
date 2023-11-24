@@ -1,8 +1,6 @@
 package skippyall.custom_rewards;
 
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import skippyall.custom_rewards.config.LuckyBlockConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -31,16 +29,16 @@ public class LuckyBlocks implements Listener {
         }
     }
 
-    public static @Nullable ItemStack getLuckyBlock(@NotNull String id){
+    public static ItemStack getLuckyBlock(String id){
         for(ItemStack stack:LuckyBlockConfig.getLuckyBlocks()){
-            if(stack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(CustomRewards.plugin, id),PersistentDataType.STRING).equals(id)){
+            if(stack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(CustomRewards.plugin, "id"),PersistentDataType.STRING).equals(id)){
                 return stack;
             }
         }
         return null;
     }
 
-    public static @NotNull ItemStack getCoin(){
+    public static ItemStack getCoin(){
         return LuckyBlockConfig.getCoin();
     }
 
